@@ -1,0 +1,75 @@
+{% extends 'departments/wrapper.html' %}
+
+{% load index %}
+{% block content %}
+
+	<table class="table_blur">
+		<tr>
+			<th>Месяц</th>
+            <th>ТО</th>
+            <th>Город</th>
+            <th>Офис</th>
+            <th>Группа показателей</th>
+            <th>Показатель</th>
+            <th>Значение</th>
+        </tr>
+
+	{% if table %}
+	
+		{% for i in table %}
+		<tr>
+			<td>{{i.date}}</td>
+			<td>{{i.office.technical_department}}</td>
+			<td>{{i.office.city}}</td>
+			<td>{{i.office.office}}</td>
+			<td>{{i.id_group.group_indicator}}</td>  
+			<td>{{i.id_group.indicator}}</td>
+			<td>{{i.value}}</td>
+		</tr>
+			{% if table > 5 %}
+			
+			{% endif %}
+		
+		{% endfor %}
+	</table><br>
+	{% endif %}
+	
+	<a name="table_2"></a>
+	<form action="#table_2">	
+		<label>Начиная с:</label>
+		<input name="from" type="date" value="{{from}}">
+		<label>до</label>
+		<input name="to" type="date" value="{{to}}">
+		<button type="submit">Отфильтровать</button><br><p>
+	
+	</form>
+	
+	<table class="table_blur">
+		<tr>
+			<th rowspan="3">ТО</th>
+			<th rowspan="3">Город</th>
+			<th rowspan="3">Офис</th>
+			<th colspan="2">Портфель</th>
+			<th colspan="2">Финансовые</th>
+		</tr>
+		<tr>
+			<th>Активные клиенты</th><th>Кредитные карты</th><th>NBI</th><th>Costs</th>
+		</tr>
+		<tr>
+			<th>Результат за период</th><th>Результат за период</th><th>Результат за период</th><th>Результат за период</th>
+		</tr>
+		
+	{% for i in indicators %}
+	{% for j in i %}
+		<tr>
+			<td colspan="3">{{j.0}}</td>
+			<td>{{j.1}}</td>
+			<td>{{j.2}}</td>
+			<td>{{j.3}}</td>
+			<td>{{j.4}}</td>
+		</tr>
+	{% endfor %}
+	{% endfor %}
+	</table><br>
+	
+{% endblock %}
